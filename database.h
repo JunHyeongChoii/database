@@ -18,7 +18,9 @@ struct Entry {
 };
 
 struct Database {
-  Entry *entry;
+  Entry *entries;
+  int size; // 배열의 크기
+  int capacity; // 할당된 메모리의 용량
 };
 
 // 엔트리를 생성한다.
@@ -38,6 +40,8 @@ void remove(Database &database, std::string &key);
 
 // 데이터베이스를 해제한다.
 void destroy(Database &database);
+
+void list(Database &database);
 
 
 #endif
