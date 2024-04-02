@@ -28,7 +28,7 @@ int main()
             Entry *newEntry;
 
             std::string key;
-            std::string value;
+            
             std::string stype;
             Type type;
 
@@ -53,7 +53,9 @@ int main()
            
 
                 double* value = new double;
+                
                 std::cin >> *(static_cast<double*>(value));
+
           
                 newEntry = create(type, key, value);
             }
@@ -65,15 +67,35 @@ int main()
 
                 std::string* value = new std::string;
                 std::cin >> *(static_cast<std::string*>(value));
-           
+                (*value).insert(0,"\"");
+                (*value).push_back('\"');
                 newEntry = create(type, key, value);
             }
 
             // else if(stype == "array")
             // {
             //     type = ARRAY;
-            //     std::string value;
+            //     Array* value = new Array;
+            //     int size;
+
+            //     std::cout << size <": ";
+            //     std::cin >>size;
+
+            //     for(int i = 0 ; i<size; i++)
+            //     {
+            //         std::cout << item[i] <<": ";
+            //         std::cin >> ;
+            //         for(int j = 0; j<size; j++)
+            //         {
+            //             std::cout<< item[j] <<": ";
+            //             std::cin >> ;
+            //         }
+            //     }
+            //     std::cout << size;
+
             //     std::cin >> value;
+
+
             //     newEntry = create(type, key, value);
             // }
 
@@ -82,10 +104,28 @@ int main()
                 std::cout << "Unkown type\n"; 
                 continue;
             }
-
-
-            add(a, newEntry);
             
+            int keyCheck = 0; // 0이면 중복되는 key값이 없는것, 1이면 중복되는 key값이 있는것
+
+            int numi = 0; // i값을 저장해서 같은 key값의 위치를 찾는다.
+           for(int i = 0; i<a.size; i++)
+           {
+                if(a.entries[i].key == key)
+                {
+                    keyCheck = 1;
+                    numi = i;
+                }
+           }
+
+           if(keyCheck == 0)
+           {
+                add(a, newEntry);
+           }
+           
+           else
+           {
+                a.entries[numi] = *newEntry;
+           }
             
             
         }
